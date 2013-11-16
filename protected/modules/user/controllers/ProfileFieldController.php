@@ -362,7 +362,7 @@ class ProfileFieldController extends Controller
 		}
 		
 		$this->registerScript();
-		$this->render('create',array(
+		$this->renderPartial('create',array(
 			'model'=>$model,
 		));
 	}
