@@ -2,6 +2,8 @@
 
 class SiteController extends Controller
 {
+
+
 	/**
 	 * Declares class-based actions.
 	 */
@@ -27,9 +29,29 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+
+
+		/*
+$t2=Categories::model()->getCatagoryList();
+		var_dump($t2);
+
+		Yii::app()->end();
+		*/
+
+
+		$criteria=new CDbCriteria;
+		$criteria->limit=6;
+		$criteria->order='lendtime';
+
+		$books=Books::model()->findAll($criteria);
+
+
+
+
+		
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$this->render('index',array('books'=>$books));
 	}
 
 	/**
@@ -42,7 +64,7 @@ class SiteController extends Controller
 			if(Yii::app()->request->isAjaxRequest)
 				echo $error['message'];
 			else
-				$this->render('error', $error);
+				$this->renderPartial('error', $error);
 		}
 	}
 
@@ -105,5 +127,11 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	public function actionTest(){
+		echo Categories::getCataName(1);
+		
+
 	}
 }

@@ -1,18 +1,21 @@
 <?php $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration");
 $this->breadcrumbs=array(
-	UserModule::t("Registration"),
+	UserModule::t("注册用户"),
 );
 ?>
 
-<h1><?php echo UserModule::t("Registration"); ?></h1>
+<div class="container">
+<div class="row	">
+<h1><?php echo UserModule::t("注册用户"); ?></h1>
 
 <?php if(Yii::app()->user->hasFlash('registration')): ?>
 <div class="success">
 <?php echo Yii::app()->user->getFlash('registration'); ?>
 </div>
 <?php else: ?>
+</div>
 
-<div class="form">
+<div class="form row">
 <?php $form=$this->beginWidget('UActiveForm', array(
 	'id'=>'registration-form',
 	'enableAjaxValidation'=>true,
@@ -23,35 +26,35 @@ $this->breadcrumbs=array(
 	'htmlOptions' => array('enctype'=>'multipart/form-data'),
 )); ?>
 
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
+	<p class="note"><?php echo UserModule::t('字段后面有<span class="required">*</span> 号的是必输选项'); ?></p>
 	
 	<?php echo $form->errorSummary(array($model,$profile)); ?>
 	
 	<div class="row">
-	<?php echo $form->labelEx($model,'username'); ?>
-	<?php echo $form->textField($model,'username'); ?>
-	<?php echo $form->error($model,'username'); ?>
+	<?php echo $form->labelEx($model,'username',array('class'=>'col-md-1')); ?>
+	<?php echo $form->textField($model,'username',array('class'=>'col-md-2')); ?>
+	<?php echo $form->error($model,'username',array('class'=>'col-md-2')); ?>
 	</div>
 	
 	<div class="row">
-	<?php echo $form->labelEx($model,'password'); ?>
-	<?php echo $form->passwordField($model,'password'); ?>
-	<?php echo $form->error($model,'password'); ?>
+	<?php echo $form->labelEx($model,'password',array('class'=>'col-md-1')); ?>
+	<?php echo $form->passwordField($model,'password',array('class'=>'col-md-2')); ?>
+	<?php echo $form->error($model,'password',array('class'=>'col-md-2')); ?>
 	<p class="hint">
 	<?php echo UserModule::t("Minimal password length 4 symbols."); ?>
 	</p>
 	</div>
 	
 	<div class="row">
-	<?php echo $form->labelEx($model,'verifyPassword'); ?>
-	<?php echo $form->passwordField($model,'verifyPassword'); ?>
-	<?php echo $form->error($model,'verifyPassword'); ?>
+	<?php echo $form->labelEx($model,'verifyPassword',array('class'=>'col-md-1')); ?>
+	<?php echo $form->passwordField($model,'verifyPassword',array('class'=>'col-md-2')); ?>
+	<?php echo $form->error($model,'verifyPassword',array('class'=>'col-md-2')); ?>
 	</div>
 	
 	<div class="row">
-	<?php echo $form->labelEx($model,'email'); ?>
-	<?php echo $form->textField($model,'email'); ?>
-	<?php echo $form->error($model,'email'); ?>
+	<?php echo $form->labelEx($model,'email',array('class'=>'col-md-1')); ?>
+	<?php echo $form->textField($model,'email',array('class'=>'col-md-2')); ?>
+	<?php echo $form->error($model,'email',array('class'=>'col-md-2')); ?>
 	</div>
 	
 <?php 
@@ -60,7 +63,7 @@ $this->breadcrumbs=array(
 			foreach($profileFields as $field) {
 			?>
 	<div class="row">
-		<?php echo $form->labelEx($profile,$field->varname); ?>
+		<?php echo $form->labelEx($profile,$field->varname,array('class'=>'col-md-1')); ?>
 		<?php 
 		if ($widgetEdit = $field->widgetEdit($profile)) {
 			echo $widgetEdit;
@@ -80,21 +83,21 @@ $this->breadcrumbs=array(
 ?>
 	<?php if (UserModule::doCaptcha('registration')): ?>
 	<div class="row">
-		<?php echo $form->labelEx($model,'verifyCode'); ?>
+		<?php echo $form->labelEx($model,'verifyCode',array('class'=>'col-md-1')); ?>
 		
 		<?php $this->widget('CCaptcha'); ?>
 		<?php echo $form->textField($model,'verifyCode'); ?>
 		<?php echo $form->error($model,'verifyCode'); ?>
 		
-		<p class="hint"><?php echo UserModule::t("Please enter the letters as they are shown in the image above."); ?>
-		<br/><?php echo UserModule::t("Letters are not case-sensitive."); ?></p>
+
 	</div>
 	<?php endif; ?>
 	
 	<div class="row submit">
-		<?php echo CHtml::submitButton(UserModule::t("Register")); ?>
+		<?php echo CHtml::submitButton(UserModule::t("注册"),array('class'=>'btn btn-large btn-primary','style'=>'width:120px;')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+</div> <!-- contianer -->
 <?php endif; ?>

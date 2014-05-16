@@ -39,11 +39,12 @@ class Books extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('categoryid, bookname, luserid, detail, photo, lendtime, buserid, borrowtime, author, public', 'required'),
+			array('categoryid, bookname, luserid, detail, lendtime, buserid, borrowtime, author, public', 'required'),
 			array('categoryid, luserid, commend, buserid, number', 'numerical', 'integerOnly'=>true),
 			array('bookname', 'length', 'max'=>50),
 			array('detail', 'length', 'max'=>300),
-			array('photo, author, public', 'length', 'max'=>20),
+			array('author, public', 'length', 'max'=>20),
+			array('photo','length','max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('bookid, categoryid, bookname, luserid, detail, photo, commend, lendtime, buserid, borrowtime, author, public, number', 'safe', 'on'=>'search'),
@@ -71,13 +72,13 @@ class Books extends CActiveRecord
 			'bookid' => '书号',
 			'categoryid' => '类别',
 			'bookname' => '书名',
-			'luserid' => '上位漂流者',
+			'luserid' => '借出者',
 			'detail' => '详细',
 			'photo' => '图片',
-			'commend' => 'Commend',
-			'lendtime' => '上次漂流时间',
-			'buserid' => 'Buserid',
-			'borrowtime' => 'Borrowtime',
+			'commend' => '点赞',
+			'lendtime' => '借出时间',
+			'buserid' => '借入者',
+			'borrowtime' => '借入时间',
 			'author' => '作者',
 			'public' => '出版社',
 			'number' => '数量',

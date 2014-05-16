@@ -28,15 +28,15 @@ class BooksController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','test','rand'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','brow','adminl'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','brow','adminl'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -56,6 +56,17 @@ class BooksController extends Controller
 		));
 	}
 
+	public function actionRand(){
+		$criteria= new CDbCriteria();
+		$criteria->order="rand()";
+		$criteria->limit="1";
+		$model=Books::model()->find($criteria);
+
+
+		$this->render('view',array('model'=>$model));
+
+	}
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -66,14 +77,42 @@ class BooksController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+		
+		$model->luserid=Yii::app()->user->id;
+		$model->buserid=0;
+		$model->commend=0;
+		$model->lendtime=date("Y-m-d");
+		$model->borrowtime=$model->lendtime;
 
-		if(isset($_POST['Books']))
-		{
+
+
+		if(isset($_POST['Books'])){
 			$model->attributes=$_POST['Books'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->bookid));
+			
+			$image = CUploadedFile::getInstance($model, 'photo');  
+
+			$model->photo='/uploads/'.time().'.'.$image->getExtensionName(); 
+
+
+
+			if($model->save()) {
+					if (is_object($image) && get_class($image)==='CUploadedFile') {
+					
+						$image->saveAs(Yii::getPathOfAlias('webroot').$model->photo);
+							
+					}else{
+							
+							$model->photo='NoPic.jpg';
+					}
+
+
+					$this->redirect(array('view','id'=>$model->bookid));
+			}
 		}
 
+
+
+		
 		$this->render('create',array(
 			'model'=>$model,
 		));
@@ -94,8 +133,20 @@ class BooksController extends Controller
 		if(isset($_POST['Books']))
 		{
 			$model->attributes=$_POST['Books'];
-			if($model->save())
+			$image = CUploadedFile::getInstance($model, 'photo');  
+			$model->photo='/uploads/'.time().'.'.$image->getExtensionName();
+		
+			if($model->save()){
+				if (is_object($image) && get_class($image)==='CUploadedFile') {
+					
+						$image->saveAs(Yii::getPathOfAlias('webroot').$model->photo);
+							
+					}else{
+							
+							$model->photo='NoPic.jpg';
+					}
 				$this->redirect(array('view','id'=>$model->bookid));
+			}
 		}
 
 		$this->render('update',array(
@@ -110,7 +161,13 @@ class BooksController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+
+		$model=$this->loadModel($id);
+
+		if($model->buserid!=0)
+			throw new CHttpException(200,'必需现收回，才能删除');
+
+		$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -133,15 +190,44 @@ class BooksController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Books('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Books']))
-			$model->attributes=$_GET['Books'];
+
+		$dataProvider=new CActiveDataProvider('Books',array(
+                         'criteria'=>array(
+                              'order' => "lendtime desc",
+                                'condition'=> "buserid = :buserid",
+                                 'params'  => array(':buserid' =>Yii::app()->user->id),
+                                   )
+                              ));
+
+		
 
 		$this->render('admin',array(
-			'model'=>$model,
+			'dataProvider'=>$dataProvider,'mytitle'=>'我借到的书'
 		));
 	}
+
+
+/**
+	 * Manages all models.
+	 */
+	public function actionAdminl()
+	{
+
+		$dataProvider=new CActiveDataProvider('Books',array(
+                         'criteria'=>array(
+                              'order' => "lendtime desc",
+                                'condition'=> "luserid = :luserid",
+                                 'params'  => array(':luserid' =>Yii::app()->user->id),
+                                   )
+                              ));
+
+		
+
+		$this->render('admin',array(
+			'dataProvider'=>$dataProvider,'mytitle'=>'我借出的书'
+		));
+	}
+
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -169,5 +255,36 @@ class BooksController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+
+	public function actionTest(){
+
+			$t1=Categories::model()->getCatagoryList();
+			var_dump($t1);
+	}
+
+	public function actionBrow($id){
+		$model=$this->loadModel($id);
+
+		if($model->buserid!=0)
+				throw new CHttpException(404,'该书已经被人借走，不能再借');
+		if($model->luserid==Yii::app()->user->id) 
+				throw new CHttpException(404,'不能借自己借出去的书');
+		$model->buserid=Yii::app()->user->id;
+		if($model->save()){
+				throw new CHttpException(200,'借书成功');
+		}
+
+	}
+
+
+
+	public function actionBack($id){
+			$model=$this->loadModel($id);
+			$model->buserid=0;
+			if($model->save()){
+				throw new CHttpException(200,'收回成功');
+			}	
 	}
 }

@@ -3,18 +3,19 @@ $this->breadcrumbs=array(
 	UserModule::t("Profile") => array('/user/profile'),
 	UserModule::t("Change Password"),
 );
-$this->menu=array(
-	((UserModule::isAdmin())
-		?array('label'=>UserModule::t('Manage Users'), 'url'=>array('/user/admin'))
-		:array()),
-    array('label'=>UserModule::t('List User'), 'url'=>array('/user')),
-    array('label'=>UserModule::t('Profile'), 'url'=>array('/user/profile')),
-    array('label'=>UserModule::t('Edit'), 'url'=>array('edit')),
-    array('label'=>UserModule::t('Logout'), 'url'=>array('/user/logout')),
-);
+
 ?>
 
-<h1><?php echo UserModule::t("Change password"); ?></h1>
+
+
+
+<div class="container"  >
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+
+
+<h1><?php echo "修改密码"; ?></h1>
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -25,34 +26,37 @@ $this->menu=array(
 	),
 )); ?>
 
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
+	
 	<?php echo $form->errorSummary($model); ?>
 	
 	<div class="row">
-	<?php echo $form->labelEx($model,'oldPassword'); ?>
+	<?php echo "旧密码"; ?>
 	<?php echo $form->passwordField($model,'oldPassword'); ?>
 	<?php echo $form->error($model,'oldPassword'); ?>
 	</div>
 	
 	<div class="row">
-	<?php echo $form->labelEx($model,'password'); ?>
+	<?php echo "新密码"; ?>
 	<?php echo $form->passwordField($model,'password'); ?>
 	<?php echo $form->error($model,'password'); ?>
 	<p class="hint">
-	<?php echo UserModule::t("Minimal password length 4 symbols."); ?>
+	
 	</p>
 	</div>
 	
 	<div class="row">
-	<?php echo $form->labelEx($model,'verifyPassword'); ?>
+	<?php echo "重&nbsp;&nbsp;&nbsp;复"; ?>
 	<?php echo $form->passwordField($model,'verifyPassword'); ?>
 	<?php echo $form->error($model,'verifyPassword'); ?>
 	</div>
 	
 	
 	<div class="row submit">
-	<?php echo CHtml::submitButton(UserModule::t("Save")); ?>
+	<?php echo CHtml::submitButton(UserModule::t("确认修改")); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+		</div> <!-- main context -->
+	</div> <!-- row -->
+</div>

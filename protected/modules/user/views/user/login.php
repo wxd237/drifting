@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>用户登陆</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo Yii::app()->request->baseUrl;?>/css/bootstrap.css" rel="stylesheet">
@@ -38,11 +38,11 @@
        
  
 
-        <?php echo CHtml::activeLabelEx($model,'username'); ?>
+        <?php echo "用户名"; ?>
         <?php echo CHtml::activeTextField($model,'username',array('class'=>'form-control .form-inline','placeholder'=>'用户名')) ?>
          <?php echo CHtml::error($model,'username',array('class'=>'alert alert-danger ')); ?>
        <!-- <input type="text" class="input-block-level" placeholder="Email address"> -->
-        <?php echo CHtml::activeLabelEx($model,'password'); ?>
+        <?php echo "密码*"; ?>
        <?php echo CHtml::activePasswordField($model,'password',array('class'=>'form-control .form-inline ','placeholder'=>'密码')) ?>
                <?php echo CHtml::error($model,'password',array('class'=>'alert alert-danger ')); ?>
        <!-- <input type="password" class="input-block-level" placeholder="Password"> -->
@@ -50,8 +50,13 @@
           <?php echo CHtml::activeCheckBox($model,'rememberMe'); ?>记住我
         </label>
         <button class="btn btn-large btn-primary" type="submit" style="width:120px;">登陆</button>
-       <?php echo CHtml::link(UserModule::t("忘记密码"),Yii::app()->getModule('user')->recoveryUrl,array('class'=>'link')); ?>
-      <?php echo CHtml::link(UserModule::t("还没注册"),Yii::app()->getModule('user')->registrationUrl,array('class'=>'link')); ?>
+         <a class="btn btn-large btn-info" style="width:120px;" href="<?php echo $this->createUrl('/user/registration');?>" >还没注册</a>
+       <?php
+          
+
+       ?>
+       <!--<?php echo CHtml::link(UserModule::t("忘记密码"),Yii::app()->getModule('user')->recoveryUrl,array('class'=>'link')); ?> -->
+      <!--<?php echo CHtml::link(UserModule::t("还没注册"),Yii::app()->getModule('user')->registrationUrl,array('class'=>'link')); ?> -->
       </form>
        
     </div> <!-- /container -->

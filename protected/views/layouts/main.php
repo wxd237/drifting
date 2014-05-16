@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-    <title>Off Canvas Template for Bootstrap</title>
+    <title><?php echo Yii::app()->name;?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo Yii::app()->request->baseUrl;?>/css/bootstrap.min.css" rel="stylesheet">
@@ -42,9 +42,8 @@
 
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="active"><a href="<?php echo $this->createUrl('books/rand');?>">随便看看</a></li>
+           
           </ul>
           <ul class="nav navbar-nav navbar-right">
           <!-- <li><a href="<?php echo $this->createUrl('/user/recover');?>">找回密码</a></li>  -->
@@ -60,13 +59,25 @@
 
       <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home1</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+         
+             <li ><a href="<?php echo $this->createUrl('books/rand');?>">随便看看</a></li>
+          
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">Default</a></li>
-            <li><a href="<?php echo $this->createUrl('/user/profile');?>">个人</a></li>
+          
+              <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">控制面板<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="<?php echo $this->createUrl('/user/profile');?>">配置信息</a></li>
+          <li><a href="<?php echo $this->createUrl('/books/admin');?>">我借到书</a></li>
+            <li><a href="<?php echo $this->createUrl('/books/adminl');?>">我借出书</a></li>
+          <li><a href="<?php echo $this->createUrl('/books/create');?>">漂流书</a></li>
+          <li><a href="<?php echo $this->createUrl('/user/profile/Changepassword');?>">修改密码</a></li>
+          <li class="divider"></li>
+          <li><a href="<?php echo $this->createUrl('/user/profile/edit');?>">修改信息</a></li>
+         
+        </ul>
+      </li>
             <li><a href="<?php echo $this->createUrl('/user/logout');?>">退出</a></li>
           </ul>
         </div><!-- /.nav-collapse -->

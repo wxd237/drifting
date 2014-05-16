@@ -7,13 +7,7 @@ $this->breadcrumbs=array(
 	$model->bookid,
 );
 
-$this->menu=array(
-	array('label'=>'List Books', 'url'=>array('index')),
-	array('label'=>'Create Books', 'url'=>array('create')),
-	array('label'=>'Update Books', 'url'=>array('update', 'id'=>$model->bookid)),
-	array('label'=>'Delete Books', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->bookid),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Books', 'url'=>array('admin')),
-);
+
 ?>
 
 
@@ -22,17 +16,24 @@ $this->menu=array(
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
 
-<h1>View Books #<?php echo $model->bookid; ?></h1>
+<h1><?php echo $model->bookname;?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'bookid',
-		'categoryid',
+		array(
+			'label'=>'类别',
+			'value'=>Categories::getCataName($model->categoryid),
+			),
 		'bookname',
 		'luserid',
 		'detail',
-		'photo',
+		array(
+			'label'=>'封面',
+			'type'=>'image',
+			'value'=>Yii::app()->request->baseUrl.$model->photo,
+			),
 		'commend',
 		'lendtime',
 		'buserid',
@@ -42,6 +43,8 @@ $this->menu=array(
 		'number',
 	),
 )); ?>
+
+<a class="btn primary" href="<?php echo $this->createUrl('/books/brow',array('id'=>$model->bookid));?>">我要借</a>
 </div>
 </div>
 

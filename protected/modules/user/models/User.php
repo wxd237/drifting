@@ -90,18 +90,18 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => UserModule::t("Id"),
-			'username'=>UserModule::t("username"),
-			'password'=>UserModule::t("password"),
-			'verifyPassword'=>UserModule::t("Retype Password"),
-			'email'=>UserModule::t("E-mail"),
-			'verifyCode'=>UserModule::t("Verification Code"),
-			'activkey' => UserModule::t("activation key"),
-			'createtime' => UserModule::t("Registration date"),
-			'create_at' => UserModule::t("Registration date"),
+			'username'=>UserModule::t("用户名"),
+			'password'=>UserModule::t("密码"),
+			'verifyPassword'=>UserModule::t("密码重复"),
+			'email'=>UserModule::t("邮箱"),
+			'verifyCode'=>UserModule::t("验证码"),
+			'activkey' => UserModule::t("激活码"),
+			'createtime' => UserModule::t("注册时间"),
+			'create_at' => UserModule::t("注册时间"),
 			
-			'lastvisit_at' => UserModule::t("Last visit"),
+			'lastvisit_at' => UserModule::t("上次访问"),
 			'superuser' => UserModule::t("Superuser"),
-			'status' => UserModule::t("Status"),
+			'status' => UserModule::t("状态"),
 		);
 	}
 	

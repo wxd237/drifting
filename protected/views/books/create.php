@@ -7,12 +7,19 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Books', 'url'=>array('index')),
-	array('label'=>'Manage Books', 'url'=>array('admin')),
-);
+
 ?>
 
-<h1>Create Books</h1>
+
+	
+
+<div class="container">
+
+	<div class="row">
+		
+<h1 style="margin-left:200px;">漂流新书</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
+		
+	</div>
+</div>
