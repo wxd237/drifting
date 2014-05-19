@@ -184,9 +184,31 @@ class BooksController extends Controller
 	}
 
 	/**
-	 * 我借到的书
+	 * 图书管理
 	 */
 	public function actionAdmin()
+	{
+
+		$dataProvider=new CActiveDataProvider('Books',array(
+                         'criteria'=>array(
+                              'order' => "lendtime desc",
+                           //     'condition'=> "buserid = :buserid",
+                           //      'params'  => array(':buserid' =>Yii::app()->user->id),
+                                   )
+                              ));
+
+		
+
+		$this->render('admin',array(
+			'dataProvider'=>$dataProvider,'mytitle'=>'图书管理','btn'=>'收回'
+		));
+	}
+
+
+		/**
+	 * 我借到的书
+	 */
+	public function actionAdminb()
 	{
 
 		$dataProvider=new CActiveDataProvider('Books',array(
@@ -203,6 +225,7 @@ class BooksController extends Controller
 			'dataProvider'=>$dataProvider,'mytitle'=>'我借到的书','btn'=>'收回'
 		));
 	}
+
 
 
 /**

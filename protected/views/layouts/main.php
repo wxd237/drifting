@@ -69,13 +69,25 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">控制面板<b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="<?php echo $this->createUrl('/user/profile');?>">配置信息</a></li>
-          <li><a href="<?php echo $this->createUrl('/books/admin');?>">我借到书</a></li>
+          <li><a href="<?php echo $this->createUrl('/books/adminb');?>">我借到书</a></li>
             <li><a href="<?php echo $this->createUrl('/books/adminl');?>">我借出书</a></li>
           <li><a href="<?php echo $this->createUrl('/books/create');?>">漂流书</a></li>
+           <li class="divider"></li>
           <li><a href="<?php echo $this->createUrl('/user/profile/Changepassword');?>">修改密码</a></li>
-          <li class="divider"></li>
+        
           <li><a href="<?php echo $this->createUrl('/user/profile/edit');?>">修改信息</a></li>
-         
+          <?php  
+          if(Yii::app()->user->isAdmin()){
+            ?>
+                <li class="divider"></li>
+                  <li><a href="<?php echo $this->createUrl('/user/admin');?>">用户管理</a></li>
+                  <li><a href="<?php echo $this->createUrl('/books/admin');?>">图书管理</a></li>
+                <?php
+          }
+        ?>
+      
+
+
         </ul>
       </li>
             <li><a href="<?php echo $this->createUrl('/user/logout');?>">退出</a></li>

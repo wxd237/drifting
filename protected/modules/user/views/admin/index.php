@@ -4,12 +4,14 @@ $this->breadcrumbs=array(
 	UserModule::t('Manage'),
 );
 
+/*
 $this->menu=array(
-    array('label'=>UserModule::t('Create User'), 'url'=>array('create')),
-    array('label'=>UserModule::t('Manage Users'), 'url'=>array('admin')),
-    array('label'=>UserModule::t('Manage Profile Field'), 'url'=>array('profileField/admin')),
-    array('label'=>UserModule::t('List User'), 'url'=>array('/user')),
+    array('label'=>UserModule::t('新建用户'), 'url'=>array('create')),
+    array('label'=>UserModule::t(' 管理用户'), 'url'=>array('admin')),
+    array('label'=>UserModule::t(' 管理用户字段'), 'url'=>array('profileField/admin')),
+    array('label'=>UserModule::t('用户列表'), 'url'=>array('/user')),
 );
+*/
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -25,21 +27,12 @@ $('.search-form form').submit(function(){
 ");
 
 ?>
-<h1><?php echo UserModule::t("Manage Users"); ?></h1>
+<h1><?php echo UserModule::t("用户管理"); ?></h1>
 
-<p><?php echo UserModule::t("You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done."); ?></p>
-
-<?php echo CHtml::link(UserModule::t('Advanced Search'),'#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-    'model'=>$model,
-)); ?>
-</div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'user-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	'dataProvider'=>$dataProvider,
 	'columns'=>array(
 		array(
 			'name' => 'id',

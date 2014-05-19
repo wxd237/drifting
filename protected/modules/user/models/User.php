@@ -100,7 +100,7 @@ class User extends CActiveRecord
 			'create_at' => UserModule::t("注册时间"),
 			
 			'lastvisit_at' => UserModule::t("上次访问"),
-			'superuser' => UserModule::t("Superuser"),
+			'superuser' => UserModule::t("管理员	"),
 			'status' => UserModule::t("状态"),
 		);
 	}
@@ -137,13 +137,13 @@ class User extends CActiveRecord
 	public static function itemAlias($type,$code=NULL) {
 		$_items = array(
 			'UserStatus' => array(
-				self::STATUS_NOACTIVE => UserModule::t('Not active'),
-				self::STATUS_ACTIVE => UserModule::t('Active'),
-				self::STATUS_BANNED => UserModule::t('Banned'),
+				self::STATUS_NOACTIVE => UserModule::t('未激活'),
+				self::STATUS_ACTIVE => UserModule::t('激活'),
+				self::STATUS_BANNED => UserModule::t('禁用'),
 			),
 			'AdminStatus' => array(
-				'0' => UserModule::t('No'),
-				'1' => UserModule::t('Yes'),
+				'0' => UserModule::t('是'),
+				'1' => UserModule::t('否'),
 			),
 		);
 		if (isset($code))
