@@ -9,7 +9,7 @@
           
           
           	
-          	<?php  for($i=0;$i<5;$i++) {  
+          	<?php  for($i=0;$i<count($books);$i++) {  
           			if($i%3==0) echo '<div class="row">';
           			$book=$books[$i];
           	 ?>

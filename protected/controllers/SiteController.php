@@ -24,31 +24,21 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
+	*   这个文件是主页的文件，默认访问就是这个函数下面的方法
+	*
 	 */
 	public function actionIndex()
 	{
 
 
-		/*
-$t2=Categories::model()->getCatagoryList();
-		var_dump($t2);
-
-		Yii::app()->end();
-		*/
 
 
 		$criteria=new CDbCriteria;
-		$criteria->limit=6;
+		//$criteria->limit=6;
 		$criteria->order='lendtime';
-
+			//取出所有的书
 		$books=Books::model()->findAll($criteria);
 
-
-
-
-		
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->render('index',array('books'=>$books));

@@ -3,8 +3,9 @@
 class ProfileFieldController extends Controller
 {
 
+
 	/**
-	 * @var CActiveRecord the currently loaded data model instance.
+	 * @var 这个也没用到
 	 */
 	private $_model;
 	private static $_widgets = array();

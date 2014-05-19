@@ -17,7 +17,7 @@ class RegistrationController extends Controller
 		);
 	}
 	/**
-	 * Registration user
+	 * 注册
 	 */
 	public function actionRegistration() {
             $model = new RegistrationForm;

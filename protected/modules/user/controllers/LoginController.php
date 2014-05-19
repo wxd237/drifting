@@ -1,11 +1,11 @@
 <?php
-
+//
 class LoginController extends Controller
 {
 	public $defaultAction = 'login';
 
 	/**
-	 * Displays the login page
+	 * 用户登录
 	 */
 	public function actionLogin()
 	{

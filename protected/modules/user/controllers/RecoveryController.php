@@ -5,7 +5,7 @@ class RecoveryController extends Controller
 	public $defaultAction = 'recovery';
 	
 	/**
-	 * Recovery password
+	 * 找回密码，没邮件服务器
 	 */
 	public function actionRecovery () {
 		$form = new UserRecoveryForm;

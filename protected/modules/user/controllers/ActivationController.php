@@ -6,7 +6,7 @@ class ActivationController extends Controller
 
 	
 	/**
-	 * Activation user account
+	 * 激活账户，这个没用到，没邮件服务器
 	 */
 	public function actionActivation () {
 		$email = $_GET['email'];

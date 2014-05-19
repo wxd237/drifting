@@ -15,7 +15,7 @@ class BooksController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -32,11 +32,11 @@ class BooksController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','brow','adminl'),
+				'actions'=>array('create','update','brow','adminl','delete','back','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','brow','adminl'),
+				'actions'=>array('admin','delete','brow','adminl','back','admin'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -46,7 +46,9 @@ class BooksController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
+	 * 这里是单个书详细页面
+	 *   index.php?r=books/view&id=10  
+	 *    上面这id=10  会穿到
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionView($id)
@@ -55,7 +57,7 @@ class BooksController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
-
+//随机一本书
 	public function actionRand(){
 		$criteria= new CDbCriteria();
 		$criteria->order="rand()";
@@ -68,8 +70,7 @@ class BooksController extends Controller
 	}
 
 	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * 漂流书
 	 */
 	public function actionCreate()
 	{
@@ -83,7 +84,6 @@ class BooksController extends Controller
 		$model->commend=0;
 		$model->lendtime=date("Y-m-d");
 		$model->borrowtime=$model->lendtime;
-
 
 
 		if(isset($_POST['Books'])){
@@ -119,8 +119,7 @@ class BooksController extends Controller
 	}
 
 	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
+	* 修改图书信息
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
@@ -155,8 +154,7 @@ class BooksController extends Controller
 	}
 
 	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	  *  删除书
 	 * @param integer $id the ID of the model to be deleted
 	 */
 	public function actionDelete($id)
@@ -186,7 +184,7 @@ class BooksController extends Controller
 	}
 
 	/**
-	 * Manages all models.
+	 * 我借到的书
 	 */
 	public function actionAdmin()
 	{
@@ -202,13 +200,13 @@ class BooksController extends Controller
 		
 
 		$this->render('admin',array(
-			'dataProvider'=>$dataProvider,'mytitle'=>'我借到的书'
+			'dataProvider'=>$dataProvider,'mytitle'=>'我借到的书','btn'=>'收回'
 		));
 	}
 
 
 /**
-	 * Manages all models.
+	 * 我借出的书
 	 */
 	public function actionAdminl()
 	{
@@ -224,7 +222,7 @@ class BooksController extends Controller
 		
 
 		$this->render('admin',array(
-			'dataProvider'=>$dataProvider,'mytitle'=>'我借出的书'
+			'dataProvider'=>$dataProvider,'mytitle'=>'我借出的书','btn'=>'归还'
 		));
 	}
 
@@ -263,7 +261,9 @@ class BooksController extends Controller
 			$t1=Categories::model()->getCatagoryList();
 			var_dump($t1);
 	}
-
+/*
+	借书，修改图书表的luserid字段为当前用户的ID
+*/
 	public function actionBrow($id){
 		$model=$this->loadModel($id);
 
@@ -278,7 +278,9 @@ class BooksController extends Controller
 
 	}
 
-
+/*
+	借书，修改图书表的luserid字段为0
+*/
 
 	public function actionBack($id){
 			$model=$this->loadModel($id);
@@ -288,3 +290,5 @@ class BooksController extends Controller
 			}	
 	}
 }
+
+//和书额关的都在这个文件里面

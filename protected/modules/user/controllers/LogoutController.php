@@ -5,7 +5,7 @@ class LogoutController extends Controller
 	public $defaultAction = 'logout';
 	
 	/**
-	 * Logout the current user and redirect to returnLogoutUrl.
+	 * 用户推出
 	 */
 	public function actionLogout()
 	{

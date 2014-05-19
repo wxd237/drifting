@@ -51,7 +51,7 @@ $('.search-form form').submit(function(){
 		),
 		array(
 			'class'=>'CLinkColumn',
-			'label'=>'收回',
+			'label'=>$btn,
 			'urlExpression'=>'Yii::app()->createUrl("/books/back",array("id"=>$data->bookid));',
 			),
 	),

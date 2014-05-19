@@ -23,8 +23,7 @@ class ProfileController extends Controller
 
 
 	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
+	*  个人配置信息修改
 	 */
 	public function actionEdit()
 	{
@@ -59,7 +58,7 @@ class ProfileController extends Controller
 	}
 	
 	/**
-	 * Change password
+	 * 密码修改
 	 */
 	public function actionChangepassword() {
 		$model = new UserChangePassword;

@@ -4,7 +4,7 @@ class DefaultController extends Controller
 {
 	
 	/**
-	 * Lists all models.
+	 * 没用到
 	 */
 	public function actionIndex()
 	{
